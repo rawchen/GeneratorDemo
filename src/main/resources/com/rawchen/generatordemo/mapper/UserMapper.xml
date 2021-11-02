@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- user  -->
+<mapper namespace="com.rawchen.generatordemo.mapper.UserMapper">
+
+	<resultMap id="entityResultMap" type="com.rawchen.generatordemo.entity.User">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="age" column="age"/>
+		<result property="phone" column="phone"/>
+		<result property="password" column="password"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="birthday" column="birthday"/>
+	</resultMap>
+
+	<sql id="allColumnFiled">
+		`id`,
+		`name`,
+		`age`,
+		`phone`,
+		`password`,
+		`create_time`,
+		`update_time`,
+		`birthday`
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" resultMap="entityResultMap">
+		SELECT 
+		<include refid="allColumnFiled"/>
+		FROM user
+		WHERE id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findList" resultMap="entityResultMap" parameterType="com.rawchen.generatordemo.entity.User">
+		SELECT
+		<include refid="allColumnFiled"/>
+		FROM user
+		<where>
+			<if test="id!=null ">
+				AND id like concat('%',concat(#{id},'%'))
+			</if>
+			<if test="name!=null and name!=''">
+				AND name like concat('%',concat(#{name},'%'))
+			</if>
+			<if test="age!=null ">
+				AND age like concat('%',concat(#{age},'%'))
+			</if>
+			<if test="phone!=null and phone!=''">
+				AND phone like concat('%',concat(#{phone},'%'))
+			</if>
+			<if test="password!=null and password!=''">
+				AND password like concat('%',concat(#{password},'%'))
+			</if>
+			<if test="createTime!=null ">
+				AND create_time like concat('%',concat(#{createTime},'%'))
+			</if>
+			<if test="updateTime!=null ">
+				AND update_time like concat('%',concat(#{updateTime},'%'))
+			</if>
+			<if test="birthday!=null ">
+				AND birthday like concat('%',concat(#{birthday},'%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="com.rawchen.generatordemo.entity.User">
+		INSERT INTO user
+ 			(<include refid="allColumnFiled"/>)
+		VALUES 
+ 			(#{id}, #{name}, #{age}, #{phone}, #{password}, #{createTime}, #{updateTime}, #{birthday})
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="com.rawchen.generatordemo.entity.User">
+		UPDATE user
+		SET 
+			<if test="name!=null and name!=''">
+				name = #{name}
+,			</if>
+			<if test="age!=null ">
+				age = #{age}
+,			</if>
+			<if test="phone!=null and phone!=''">
+				phone = #{phone}
+,			</if>
+			<if test="password!=null and password!=''">
+				password = #{password}
+,			</if>
+			<if test="createTime!=null ">
+				create_time = #{createTime}
+,			</if>
+			<if test="updateTime!=null ">
+				update_time = #{updateTime}
+,			</if>
+			<if test="birthday!=null ">
+				birthday = #{birthday}
+			</if>
+		WHERE 
+			id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		delete from user where id = #{id}
+	</delete>
+
+</mapper>
