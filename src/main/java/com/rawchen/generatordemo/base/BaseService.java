@@ -2,9 +2,9 @@ package com.rawchen.generatordemo.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,7 +18,8 @@ public abstract class BaseService<D extends BaseMapper<T>, T extends DataEntity<
 	 */
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Resource
+	@SuppressWarnings("all")
+	@Autowired
 	protected D dao;
 
 	public BaseService() {
