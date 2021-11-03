@@ -25,7 +25,7 @@ public abstract class BaseInterceptor implements Interceptor, Serializable {
 	protected static Page<Object> convertParameter(Object parameterObject, Page<Object> page) {
 		try {
 			return parameterObject instanceof Page ? (Page)parameterObject : (Page) ReflectUtil.getFieldValue(parameterObject, "page");
-		} catch (Exception var3) {
+		} catch (Exception e) {
 			return null;
 		}
 	}

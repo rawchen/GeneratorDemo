@@ -35,8 +35,8 @@ public class CookieUtil {
 
 		try {
 			cookie.setValue(URLEncoder.encode(value, "utf-8"));
-		} catch (UnsupportedEncodingException var7) {
-			var7.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		response.addCookie(cookie);
 	}
@@ -53,14 +53,12 @@ public class CookieUtil {
 		String value = null;
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
-			int var7 = cookies.length;
-
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals(name)) {
 					try {
 						value = URLDecoder.decode(cookie.getValue(), "utf-8");
-					} catch (UnsupportedEncodingException var11) {
-						var11.printStackTrace();
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
 					}
 					if (isRemove) {
 						cookie.setMaxAge(0);
