@@ -49,7 +49,7 @@
    </dependency>
    <dependency>
    	<groupId>org.mybatis.spring.boot</groupId>
-   	<artifactId>mybatis-spring-boot-starter</artifactId
+   	<artifactId>mybatis-spring-boot-starter</artifactId>
    	<version>1.3.3</version>
    </dependency>
    <dependency>
