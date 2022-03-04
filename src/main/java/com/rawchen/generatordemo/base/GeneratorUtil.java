@@ -338,6 +338,8 @@ public class GeneratorUtil {
 		write(bw, "import io.swagger.annotations.ApiModelProperty;");
 		write(bw, "import java.io.Serializable;");
 		write(bw, "import java.util.Date;");
+		write(bw, "import org.springframework.format.annotation.DateTimeFormat;");
+		write(bw, "import com.fasterxml.jackson.annotation.JsonFormat;");
 		bw.newLine();
 		buildClassComment(bw, (stringNotNull(tableComment) ? tableComment + " " : "") + "[" + className + "]数据对象.");
 		write(bw, "@ApiModel(value = \"" + className + "\", description = \"" + (stringNotNull(tableComment) ? tableComment : className) + "对象\")");
@@ -355,7 +357,10 @@ public class GeneratorUtil {
 				} else {
 					write(bw, "\t@ApiModelProperty(value = \"" + columns.get(i) + "\")");
 				}
-
+				if ("Date".equals(processType(types.get(i)))) {
+					write(bw, "\t@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")");
+					write(bw, "\t@DateTimeFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")");
+				}
 				write(bw, "\tprivate " + processType(types.get(i)) + " " + processField(columns.get(i)) + ";");
 				bw.newLine();
 			}
